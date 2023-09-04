@@ -2,9 +2,13 @@ import axios from 'axios';
 import './App.css';
 import { useEffect, useState } from 'react';
 import MoviesList from './components/MoviesList';
+import { saveMovies } from './store/actions';
+import { connect, useDispatch } from 'react-redux';
+import SearchBar from './components/SearchBar';
 
-function App() {
-  const [movies, setMovies] = useState([]);
+function App(props) {
+  const { movies } = props;
+  const dispatch = useDispatch();
   const [numOfPages, setNumOfPages] = useState(0);
   const [page, setPage] = useState(1);
   
@@ -12,7 +16,7 @@ function App() {
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}`
     );
-    setMovies(data.results);
+    dispatch(saveMovies(data.results));
     setNumOfPages(data.total_pages);
   };
 
@@ -22,13 +26,18 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header"></header>
+      <SearchBar fetchMovies={fetchMovies}/>
       <MoviesList allMovies={movies}/>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    movies: state.movies
+  };
+}
+export default connect(mapStateToProps)(App);
 
 // Navbar
 // SearchBar - with debouncing

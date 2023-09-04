@@ -9,3 +9,13 @@ export const provideRatingColor = (rating) => {
         return {background: 'green', color: 'white'};
     }
 } 
+
+export const debounce = (func, delay = 200) => {
+    let timer;
+    return function(...args){
+        if(timer) clearTimeout(timer);
+        timer = setTimeout(() => {
+            func(...args);
+        }, delay);
+    }
+}
