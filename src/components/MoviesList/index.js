@@ -8,7 +8,7 @@ import { saveMovies } from "../../store/actions";
 import { useDispatch } from "react-redux";
 
 function MoviesList(props) {
-    const { allMovies, page, setPage, fetchMovies, numOfPages, setNumOfPages } = props;
+    const { allMovies, page, setPage, fetchMovies, numOfPages, setNumOfPages, searchText, fetchSearch } = props;
     const dispatch = useDispatch();
     const [genres, setGenres] = useState([]);
     const [selectedGenres, setSelectedGenres] = useState([]);
@@ -27,6 +27,8 @@ function MoviesList(props) {
         window.scroll(0, 0);
         if(selectedGenres.length > 0)
             fetchMoviesOnGenre();
+        else if(searchText)
+            fetchSearch(searchText);
         else
             fetchMovies();
         // eslint-disable-next-line

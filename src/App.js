@@ -11,6 +11,7 @@ function App(props) {
   const dispatch = useDispatch();
   const [numOfPages, setNumOfPages] = useState(0);
   const [page, setPage] = useState(1);
+  const [searchText, setSearchText] = useState('');
   
   const fetchMovies = async () => {
     const { data } = await axios.get(
@@ -20,10 +21,26 @@ function App(props) {
     setNumOfPages(data.total_pages);
   };
 
+  const fetchSearch = async (searchText) => {
+    try {
+      const { data } = await axios.get(
+        `https://api.themoviedb.org/3/search/movie?api_key=${
+          process.env.REACT_APP_API_KEY
+        }&language=en-US&query=${searchText}&page=${page}&include_adult=false`
+      );
+    
+      dispatch(saveMovies(data.results));
+      setNumOfPages(data.total_pages);
+      setSearchText(searchText);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="App">
-      <SearchBar fetchMovies={fetchMovies} />
-      <MoviesList fetchMovies={fetchMovies} allMovies={movies} numOfPages={numOfPages} page={page} setPage={setPage} setNumOfPages={setNumOfPages} />
+      <SearchBar fetchMovies={fetchMovies} fetchSearch={fetchSearch}/>
+      <MoviesList fetchMovies={fetchMovies} allMovies={movies} numOfPages={numOfPages} page={page} setPage={setPage} setNumOfPages={setNumOfPages} searchText={searchText} fetchSearch={fetchSearch}/>
     </div>
   );
 }
