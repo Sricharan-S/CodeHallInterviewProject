@@ -1,12 +1,12 @@
 import axios from "axios";
-import { createRef, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { saveMovies } from "../../store/actions";
 import { debounce } from "../../utils/app_utils";
 import StyledSearchBar from "./SearchBar.styled";
 
 function SearchBar(props){
-    const [page, setPage] = useState(1);
+    const [page] = useState(1);
     const dispatch = useDispatch();
     let inputRef = useRef();
 
@@ -36,7 +36,7 @@ function SearchBar(props){
     }
     return (
         <StyledSearchBar>
-            <input type="text" placeholder="Search.." name="search" onChange={onSearchTextChange} ref={inputRef} />
+            <input type="text" placeholder="Search movies..." name="search" onChange={onSearchTextChange} ref={inputRef} autoComplete="off"/>
             <button type="button" onClick={onClearHandle}><i className="fa fa-close"></i></button>
         </StyledSearchBar>
     )

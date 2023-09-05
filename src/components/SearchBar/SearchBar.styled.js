@@ -11,6 +11,8 @@ const StyledSearchBar = styled.div`
     float: left;
     background: white;
     width: 50%;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
   }
   
   input[type=text]:hover {
@@ -22,9 +24,10 @@ const StyledSearchBar = styled.div`
     background: #ddd;
     font-size: 17px;
     border: none;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
     cursor: pointer;
   }
-
 `;
 
 export default StyledSearchBar;

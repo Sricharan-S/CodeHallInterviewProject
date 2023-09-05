@@ -1,6 +1,6 @@
 import axios from 'axios';
 import './App.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import MoviesList from './components/MoviesList';
 import { saveMovies } from './store/actions';
 import { connect, useDispatch } from 'react-redux';
@@ -20,14 +20,10 @@ function App(props) {
     setNumOfPages(data.total_pages);
   };
 
-  useEffect(() => {
-    fetchMovies();
-  }, []);
-
   return (
     <div className="App">
-      <SearchBar fetchMovies={fetchMovies}/>
-      <MoviesList allMovies={movies}/>
+      <SearchBar fetchMovies={fetchMovies} />
+      <MoviesList fetchMovies={fetchMovies} allMovies={movies} numOfPages={numOfPages} page={page} setPage={setPage} setNumOfPages={setNumOfPages} />
     </div>
   );
 }
