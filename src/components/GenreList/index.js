@@ -33,6 +33,7 @@ export default function GenreList(props) {
         options={genres}
         className='GenreList'
         closeMenuOnSelect={false}
+        placeholder="Select Genres..."
       />
     </StyledGenreList>
   );

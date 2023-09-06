@@ -24,6 +24,7 @@ function MoviesList(props) {
       };
 
       useEffect(() => {
+        if(!fetchMovies) return;
         window.scroll(0, 0);
         if(selectedGenres.length > 0)
             fetchMoviesOnGenre();
@@ -43,15 +44,15 @@ function MoviesList(props) {
     return (
         <StyledMoviesList>
             <GenreList genres={genres} setGenres={setGenres} selectedGenres={selectedGenres} setSelectedGenres={setSelectedGenres} />
-            <div className="allMovies">
-                {allMovies.map(movie => {
+            <div className="allMovies" data-testid="allMovies">
+                {allMovies?.map(movie => {
                     return (
-                        <MovieItem movie={movie}/>
+                        <MovieItem movie={movie} key={movie.id} />
                     )
                 })}
             </div>
         {numOfPages > 0 && (
-            <div className="pagination">
+            <div className="pagination" data-testId="pagination">
                 <span onClick={() => selectPageHandler(page - 1)} className={page > 1 ? "" : "pagination__disable"}>◀</span>
 
                 {[...Array(Math.floor(numOfPages / 20))].map((_, i) => {

@@ -40,7 +40,16 @@ function App(props) {
   return (
     <div className="App">
       <SearchBar fetchMovies={fetchMovies} fetchSearch={fetchSearch}/>
-      <MoviesList fetchMovies={fetchMovies} allMovies={movies} numOfPages={numOfPages} page={page} setPage={setPage} setNumOfPages={setNumOfPages} searchText={searchText} fetchSearch={fetchSearch}/>
+      <MoviesList 
+        fetchMovies={fetchMovies} 
+        allMovies={movies} 
+        numOfPages={numOfPages} 
+        page={page} 
+        setPage={setPage} 
+        setNumOfPages={setNumOfPages} 
+        searchText={searchText} 
+        fetchSearch={fetchSearch}
+      />
     </div>
   );
 }
@@ -51,10 +60,3 @@ const mapStateToProps = (state) => {
   };
 }
 export default connect(mapStateToProps)(App);
-
-// Navbar
-// SearchBar - with debouncing
-// Movies list
-// MovieItem
-// Pagination
-// Filtering badges based on genre - FilterGenreList - GenreBadge

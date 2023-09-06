@@ -10,7 +10,7 @@ function MovieItem({ movie }) {
         vote_average,
     } = movie;
     return (
-        <StyledMoviesItem ratingColor={provideRatingColor(vote_average)}>
+        <StyledMoviesItem ratingColor={provideRatingColor(vote_average)} data-testid='singleMovieItem'>
              <img
                 className="poster"
                 src={`${img_300}${poster_path}`}
